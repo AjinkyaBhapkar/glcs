@@ -8,12 +8,12 @@ router.route('').get((req,res)=>{
 })
 
 router.route('/add').post((req,res)=>{
-    const ticker=req.body.ticker;
-    const change=req.body.change;
+    const gainer=req.body.gainer;
+    const looser=req.body.looser;
 
     const newGL = new GL({
-        ticker,
-        change
+        gainer,
+        looser
     })
 
     newGL.save()

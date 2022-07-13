@@ -1,6 +1,8 @@
 const express =require('express')
 const cors =require('cors')
 const mongoose=require('mongoose');
+const {save2DB} =require('./cron_functions/cron')
+const cron = require('node-cron')
 
 require('dotenv').config();
 
@@ -20,6 +22,8 @@ connection.once('open',()=>{
 
 const glRouter=require('./routes/gl')
 app.use('/gl',glRouter)
+
+cron.schedule('* * * * *',save2DB);
 
 app.listen(port,()=>{
     console.log(`Server is running on port:${port}`);
