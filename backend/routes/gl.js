@@ -1,8 +1,14 @@
 const router = require('express').Router();
 let GL =require('../models/gl.model');
+let GL240 =require('../models/gl.model240');
 
 router.route('').get((req,res)=>{
     GL.find()
+    .then(gl=>res.json(gl))
+    .catch(err=>res.status(400).json(err))
+})
+router.route('/240').get((req,res)=>{
+    GL240.find()
     .then(gl=>res.json(gl))
     .catch(err=>res.status(400).json(err))
 })
@@ -17,6 +23,19 @@ router.route('/add').post((req,res)=>{
     })
 
     newGL.save()
+    .then(()=>res.status(200).json(`Entry added successfully!!`))
+    .catch(err=>res.status(400).json(err))
+})
+router.route('/add240').post((req,res)=>{
+    const gainer=req.body.gainer;
+    const looser=req.body.looser;
+
+    const newGL240 = new GL240({
+        gainer,
+        looser
+    })
+
+    newGL240.save()
     .then(()=>res.status(200).json(`Entry added successfully!!`))
     .catch(err=>res.status(400).json(err))
 })

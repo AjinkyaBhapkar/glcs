@@ -10,7 +10,7 @@ const Table = (p) => {
     const [gdata, setgData] = useState([])
     const [ldata, setlData] = useState([])
     const fetch = () => {
-        axios.get(`http://localhost:5000/${p.prop}`)
+        axios.get(`https://binance--screener.herokuapp.com/${p.prop}`)
             .then(res => {
                 g = res.data.filter(d => d.change >= 0)
                 g.sort((a, b) => parseFloat(b.change) - parseFloat(a.change))

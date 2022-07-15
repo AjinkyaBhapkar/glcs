@@ -1,7 +1,7 @@
 
 const axios = require('axios')
 
-const save2DB = async () => {
+const save2402DB = async () => {
     const final = [];
     
 
@@ -24,7 +24,7 @@ const save2DB = async () => {
                 final.sort((a, b) => a.change - b.change);
                 // console.log(final.slice(0,5))
                 // console.log(final.slice(-5))
-                axios.post(`http://localhost:5000/gl/add`,{"gainer":final.slice(-5),"looser":final.slice(0,5)})
+                axios.post(`https://binance--screener.herokuapp.com/gl/add240`,{"gainer":final.slice(-5),"looser":final.slice(0,5)})
                 .then(res=>console.log(res))
                 .catch(err=>console.log(err))
             }, 3000)
@@ -42,4 +42,4 @@ const change = (ticker, data) => {
 
 }
 
-module.exports = { save2DB }
+module.exports = { save2402DB }
