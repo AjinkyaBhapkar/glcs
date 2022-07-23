@@ -1,67 +1,44 @@
 import axios from 'axios'
-import React from 'react'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import'./live-table.css'
+import React, { useEffect, useState } from 'react'
 
-const LiveTable = () => {
-    const [validTickers, setValidTickers] = useState([])
-    const [finalData, setFinalData] = useState([])
-    const [gainers, setGainers] = useState([])
-    const [lossers, setLossers] = useState([])
-    let data = []
-    const fetch = async () => {
-        await axios.get(`https://fapi.binance.com/fapi/v1/ticker/price`)
-            .then(async res => {
-                setValidTickers(res.data.filter(d => d.symbol.includes('USDT') && !d.symbol.includes('_')))
-                validTickers.map(async d => {
-                    // console.log(d.symbol)
-                    await axios.get(`https://fapi.binance.com/fapi/v1/klines?symbol=${d.symbol}&interval=4h&limit=1`)
-                        .then(async res => {
-                            const o = res.data[0][1]
-                            const c = res.data[0][4]
-                            const pchange = (((c - o) / o) * 100).toFixed(2)
-                            data.push({ "symbol": d.symbol, "change": pchange })
-                             setFinalData(data)
-                            // setGainers(data?.sort((a, b) => b.change - a.change).slice(0, 5))
-                            // setLossers(data?.sort((a, b) => a.change - b.change).slice(0, 5))
+const LiveTable2 = () => {
+    const [render, setRender] = useState(0)
+    const [data, setData] = useState([])
+    const fetch = () => {
 
-                        })
-                })
-            })
-
+        axios.get(`https://traderstoolkit.herokuapp.com/gl/live`)
+            .then(res => setData(res.data[0].live))
+        // .then(res=>console.log(res.data[0].live))
     }
-    // fetch()
 
-    const [m, se] = useState(0)
     useEffect(() => {
-        
+
 
         const intervalId = setInterval(() => {
 
-            se(p => p + 1)
+            setRender(p => p + 1)
             fetch();
 
-        }, 10000);
+
+        }, 5000);
 
         fetch()
         return () => clearInterval(intervalId);
-    }, [m])
+    }, [render])
 
-
-    return (
-        <div>
-
-            <button onClick={() => se(m => m + 1)}>load live</button>
-            <div className='tables-container'>
+    return (<div className='table-main'>
+        <h3 style={{'textAlign':'center','color':'gray'}}>Top Gainers and Lossers of current 4H candle</h3>
+       
+        <div className='tables-container'>
             <table>
                 <tbody>
-                    {console.log(data)}
-                    {finalData.map(d => {
+                    {/* {console.log(data)} */}
+
+                    {data.sort((a,b)=>b.change-a.change).slice(0, 5).map(d => {
                         return (
                             <tr key={d.symbol}>
-                                <td>{d.symbol}</td>
-                                <td>{d.change}</td>
+                                <td><a target="_blank" rel="noopener noreferrer" href={`https://www.binance.com/en/futures/${d.symbol}`}>{d.symbol}</a></td>
+                                <td className={(d.change>0)? 'green':''}>{d.change}%</td>
                             </tr>
                         )
                     })}
@@ -69,19 +46,20 @@ const LiveTable = () => {
             </table>
             <table>
                 <tbody>
-                    {finalData.map(d => {
+                    {data.sort((a,b)=>a.change-b.change).slice(0,5).map(d => {
                         return (
                             <tr key={d.symbol}>
-                                <td>{d.symbol}</td>
-                                <td>{d.change}</td>
+                                <td><a target="_blank" rel="noopener noreferrer" href={`https://www.binance.com/en/futures/${d.symbol}`}>{d.symbol}</a></td>
+                                <td className={(d.change<0)? 'red':''}>{d.change}%</td>
                             </tr>
                         )
                     })}
                 </tbody>
             </table>
-            </div>
         </div>
-    )
+        <span style={{'color':'gray'}}>(Live data Auto-refresh@5sec)</span>
+        </div>
+  )
 }
 
-export default LiveTable
+export default LiveTable2

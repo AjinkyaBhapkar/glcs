@@ -1,87 +1,84 @@
-import React from 'react'
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import React from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
+
 import './table.css'
 
-const Table = (p) => {
-    let g = []
-    let l = []
+const Table2 = (pr) => {
+  const [gainer, setGainer] = useState([])
+  const [losser, setLosser] = useState([])
+  const[tm,setTM]=useState('')
+  const[sessn,setSessn]=useState('')
+  const[prop,setProp]=useState(pr.index)
+  
 
-    const [gdata, setgData] = useState([])
-    const [ldata, setlData] = useState([])
-    const fetch = () => {
-        axios.get(`https://binance--screener.herokuapp.com/${p.prop}`)
-            .then(res => {
-                g = res.data.filter(d => d.change >= 0)
-                g.sort((a, b) => parseFloat(b.change) - parseFloat(a.change))
-                setgData(g)
-                l = res.data.filter(d => d.change < 0)
-                l.sort((a, b) => parseFloat(a.change) - parseFloat(b.change))
-                setlData(l)
+
+  const session=()=>{
+    if(tm.slice(11,13)==='23'){setSessn('Daily Close')}
+    else if(tm.slice(11,13)==='03'){setSessn('Asian')}
+    else if(tm.slice(11,13)==='07'){setSessn('London Open')}
+    else if(tm.slice(11,13)==='11'){setSessn('NewYork Open')}
+    else if(tm.slice(11,13)==='15'){setSessn('London Closing')}
+    else if(tm.slice(11,13)==='19'){setSessn('NewYork Closing')}
+    else {setSessn('Not 4h closing data ')}
+  }
+  useEffect(() => {
+    axios.get(`https://traderstoolkit.herokuapp.com/gl/240`)
+    .then(res => {
+      setTM(res.data[(res.data.length)-(prop)].createdAt)
+      setGainer(res.data[(res.data.length)-(prop)].gainer)
+      setLosser(res.data[(res.data.length)-(prop)].looser)
+      
+    })
+    session()
+  },[tm])
+
+  
+
+  return (
+   
+    <div className='table-main'>
+      <div className='table-header'>
+
+      <h4 className='table-date'>{tm.slice(0,10)}</h4>
+      <p className='table-session'>{sessn}</p>
+      <p className='table-session-time'>({tm.slice(11,19)} UTC)</p>
+      </div>
+      <div className='tables-container'>
+      <table >
+        
+        <tbody>
+          {
+            gainer.sort((a,b)=>b.change-a.change).map(d => {
+              return (
+                <tr key={d.symbol} >
+                  <td><a target="_blank" rel="noopener noreferrer" href={`https://www.binance.com/en/futures/${d.symbol}`}>{d.symbol}</a></td>
+                  <td className='green'>{d.change}%</td>
+                </tr>
+              )
             })
-    }
-
-    useEffect(() => {
-        fetch();
-    }, [])
-
-    return (
-        <div className='table-container'>
-
-            <div className='tables'>
-                <table className='table'>
-                    {/* <caption>Gainers</caption> */}
-                    {/* <thead>
-                    <tr>
-                    <th>Ticker</th>
-                    <th>Change</th>
-                    </tr>
-                    
-                </thead> */}
-                    <tbody>
-
-
-                        {
-                            gdata.map((d) => {
-                                return (
-                                    <tr key={d._id}>
-                                        <td>{d.ticker}</td>
-                                        <td className='green'>{d.change}</td>
-                                    </tr>
-                                )
-                            })
-                        }
-
-                    </tbody>
-                </table>
-                <table className='table'>
-                    {/* <caption>Losers</caption> */}
-                    {/* <thead>
-                    <tr>
-                    <th>Ticker</th>
-                    <th>Change</th>
-                    </tr>
-
-                </thead> */}
-                    <tbody>
-
-
-                        {
-                            ldata.map((d) => {
-                                return (
-                                    <tr key={d._id} >
-                                        <td>{d.ticker}</td>
-                                        <td className='red'>{d.change}</td>
-                                    </tr>
-                                )
-                            })
-                        }
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    )
+          }
+        </tbody>
+      </table>
+      <table>
+        
+        <tbody>
+          {
+            losser.map(d => {
+              return (
+                <tr key={d.symbol} >
+                  <td><a target="_blank" rel="noopener noreferrer" href={`https://www.binance.com/en/futures/${d.symbol}`}>{d.symbol}</a></td>
+                  <td className='red'>{d.change}%</td>
+                </tr>
+              )
+            })
+          }
+        </tbody>
+      </table>
+      </div>
+    </div>
+  )
 }
 
-export default Table
+export default Table2
