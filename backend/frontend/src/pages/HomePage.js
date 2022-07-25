@@ -4,10 +4,12 @@ import Navbar from '../components/Navbar'
 import Table from '../components/Table'
 import './homepage.css'
 
+
 const HomePage = () => {
   return (
     <div className='homepage-container'>
       <Navbar />
+      <h3 style={{'textAlign':'center','color':'gray'}}>Top Gainers and Lossers of current 4H candle</h3>
       <LiveTable />
       <h3 style={{ "textAlign": "center" ,"color":'gray'}}>Top Gainers and Lossers of previous 4H candles</h3>
       <Table index='1' />

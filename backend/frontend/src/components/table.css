@@ -33,6 +33,15 @@ table{
     border-collapse: collapse;
     
 }
+td{
+
+    font-family: 'Courier New' !important;
+    
+}
+.live-td:hover{
+    position: relative;
+    top:-2px;
+}
 td>a{
     font-family: 'Courier New' !important;
     color: inherit;
@@ -41,7 +50,7 @@ td>a{
 }
 td>a:hover{
     position: relative;
-    top:-2px
+    top:-2px;
    
 }
 

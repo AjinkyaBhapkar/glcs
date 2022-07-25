@@ -16,8 +16,12 @@
     margin: 0 30px;
     display: flex;
     list-style: none;
+    align-items: center;
 }
-
+.nav-links>ul>a{
+    color: inherit;
+    text-decoration: none;
+}
 .nav-links>ul>li{
     padding: 5px 10px;
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import './navbar.css'
+import {NavLink} from 'react-router-dom'
 
 const Navbar = () => {
   const[show,setShow]=useState('no')
@@ -15,7 +16,8 @@ const Navbar = () => {
       </div>
       <div className='nav-links'>
         <ul>
-          <li>Products</li>
+          
+          <NavLink to={'/charts'}><li className='link'>Charts</li></NavLink>
           <li>Contact us</li>
           <li>Login</li>
         </ul>

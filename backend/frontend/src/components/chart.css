@@ -1,0 +1,90 @@
+
+
+.details>p,
+.details>h4,input,button {
+    font-family: 'Times New Roman', Times, serif !important;
+    padding: 0;
+    margin: 0;
+}
+.chart>div>button{
+    font-size: 0.5rem;
+    padding: 1px;
+    margin: 0 2px;
+}
+.charts-row{
+    display: flex;
+    justify-content: space-around;
+}
+.selected{
+    border: 1px solid red;
+}
+.details {
+    position: absolute;
+    z-index: 5;
+    font-size: 0.7rem;
+    padding: 5px;
+    color: rgba(200, 200, 200, 0.8);
+}
+
+.menu {
+    position: absolute;
+    top: 45vh;
+    left: 45vw;
+    z-index: 10;
+    background-color: gray;
+    border-radius: 3px;
+
+}
+
+.menu-item {
+
+    display: flex;
+    align-items: center;
+    width: 250px;
+    justify-content: space-between;
+    font-size: 1rem;
+    height: 25px;
+    padding: 5px;
+}
+
+.menu-item>p {
+    font-family: 'Times New Roman', Times, serif !important;
+}
+
+.menu-item>button {
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    border: 0.1px solid black;
+
+}
+
+.hide {
+    display: none;
+}
+
+.close-btn {
+    padding: 1px !important;
+}
+
+button {
+    font-family: 'Times New Roman', Times, serif !important;
+}
+
+
+.tv-lightweight-charts {
+    display: none;
+}
+
+.tv-lightweight-charts:last-child {
+    display: block;
+}
+.green{
+    color: rgba(0, 246, 150, 1) !important;
+}
+.red{
+   color: rgba(255, 93, 92, 1) !important;
+}
