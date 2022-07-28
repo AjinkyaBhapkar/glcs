@@ -6,10 +6,13 @@ import {NavLink} from 'react-router-dom'
 const Navbar = () => {
   const[show,setShow]=useState('no')
   const collapse=()=>{setShow(prev=>(prev==='no')?'yes':'no')}
+  const[show2,setShow2]=useState('no')
+  const collapse2=()=>{setShow2(prev=>(prev==='no')?'yes':'no')}
   return (<>
 
     <div className='navbar-container'>
-      <div className='logo'>Trader's Toolkit</div>
+    
+      <div className='logo'><NavLink to={'/'}>Trader's Toolkit</NavLink></div>
       <div className='hamburger'>
         <button id='hamburger' onClick={collapse}>Menu</button>
 
@@ -17,18 +20,32 @@ const Navbar = () => {
       <div className='nav-links'>
         <ul>
           
-          <NavLink to={'/charts'}><li className='link'>Charts</li></NavLink>
-          <li>Contact us</li>
-          <li>Login</li>
+        <li onClick={collapse2}>Charts
+        <ul className={`${show2} drop  `}>
+        <NavLink to={'/charts'}>V 1.0</NavLink>
+        <NavLink to={'/charts2'}>V 2.0</NavLink>
+          
+        </ul>
+        </li>
+          <NavLink to={'/contact'}>Contact us</NavLink>
+          
+          
         </ul>
       </div>
       
     </div>
     <div className={`drop-down ${show}`}>
       <ul>
-        <li>Products</li>
-        <li>Contact us</li>
-        <li>Login</li>
+        <li>Charts
+        <ul className='nested-nav-links'>
+        <NavLink to={'/charts'}>V 1.0</NavLink>
+        <NavLink to={'/charts2'}>V 2.0</NavLink>
+          
+        </ul>
+        </li>
+      
+      <NavLink to={'/contact'}>Contact us</NavLink>
+        
       </ul>
     </div>
   </>

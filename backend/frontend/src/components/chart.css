@@ -11,6 +11,7 @@
     padding: 1px;
     margin: 0 2px;
 }
+
 .charts-row{
     display: flex;
     justify-content: space-around;
@@ -81,10 +82,26 @@ button {
 
 .tv-lightweight-charts:last-child {
     display: block;
+    
 }
+
 .green{
     color: rgba(0, 246, 150, 1) !important;
 }
 .red{
    color: rgba(255, 93, 92, 1) !important;
+}
+@media only screen and (max-width: 700px){
+.details>p{
+    font-size: 0.4rem;
+}
+.menu {
+    position: absolute;
+    top: 40vh;
+    left: 20vw;
+    z-index: 10;
+    background-color: gray;
+    border-radius: 3px;
+
+}
 }

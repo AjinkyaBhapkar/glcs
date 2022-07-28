@@ -45,10 +45,10 @@ const Chart = ({ ticker, setTicker, id,selected, details }) => {
 
                     return {
                         time: time / 1000,
-                        open: row[1],
-                        high: row[2],
-                        low: row[3],
-                        close: row[4]
+                        open: parseFloat(row[1]),
+                        high: parseFloat(row[2]),
+                        low: parseFloat(row[3]),
+                        close: parseFloat(row[4])
                     }
                 });
 
@@ -105,11 +105,12 @@ const Chart = ({ ticker, setTicker, id,selected, details }) => {
                     priceFormat: {
                         type: 'price',
                         precision: precision,
-                        minMove: 0.000001,
+                        minMove: 0.00000001,
                     },
                 });
 
                 candleSeries.setData(f)
+                console.log(f)
 
                 chart.subscribeCrosshairMove(param => {
                     if (param.time) setohlc(param.seriesPrices.get(candleSeries))
@@ -125,15 +126,14 @@ const Chart = ({ ticker, setTicker, id,selected, details }) => {
                     // converting to UTC +05:30
                     dateObj.setHours(dateObj.getHours() + 5);
                     dateObj.setMinutes(dateObj.getMinutes() + 30);
-                    // Converting unix time stamp to long date
-                    // utcString = dateObj.toUTCString();
+                    
 
                     candleSeries.update({
                         time: dateObj / 1000,
-                        open: z.o,
-                        high: z.h,
-                        low: z.l,
-                        close: z.c
+                        open: parseFloat(z.o),
+                        high: parseFloat(z.h),
+                        low: parseFloat(z.l),
+                        close: parseFloat(z.c)
                     })
                 }
             })

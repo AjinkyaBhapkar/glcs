@@ -29,7 +29,7 @@ const Charts = () => {
             <div className={(selected===4)? 'selected':''} onClick={() => setSelected(4)}><Chart ticker={ticker4} setTicker={setTicker4} id={'chart4'} selected={selected} details={'details4'} /></div>
 
         </div>
-        <p className='chartPage-title'>4H Gainer and lossers</p>
+        <p className='chartPage-title'>Current 4H candle Gainer and Lossers</p>
         <LiveTable setTicker1={setTicker1} setTicker2={setTicker2} setTicker3={setTicker3} setTicker4={setTicker4} selected={selected} />
     </div>
     )

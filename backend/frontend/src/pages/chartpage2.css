@@ -1,0 +1,13 @@
+.chartspage2-container{
+    background-color: rgb(65 66 72);
+}
+.chartv2-row{
+    display: flex;
+    justify-content: space-around;
+}
+.chartspage2-container>h3{
+    text-align: center;
+    color: rgb(204, 204, 204);
+    padding: 0;
+    margin: 0;
+}
