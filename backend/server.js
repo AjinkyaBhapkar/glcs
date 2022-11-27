@@ -22,19 +22,23 @@ const connection = mongoose.connection;
 connection.once('open', () => {
   console.log("MongoDB database connected!!!");
 })
-
 const glRouter = require('./routes/gl')
 app.use('/gl', glRouter)
+
+const router5m=require('./routes/5mrvol')
+app.use("/rvol/5",router5m)
+const router15m=require('./routes/15mrvol')
+app.use("/rvol/15",router15m)
+const router1h=require('./routes/1hrvol')
+app.use("/rvol/60",router1h)
+const router4h=require('./routes/4hrvol')
+app.use("/rvol/240",router4h)
+const router1d=require('./routes/1drvol')
+app.use("/rvol/d",router1d)
 
 cron.schedule('14,29,44,59 0-23 * * *', save2DB, { scheduled: true, timezone: "Asia/Kolkata" });
 cron.schedule('29 1,5,9,13,17,21 * * *', save2402DB, { scheduled: true, timezone: "Asia/Kolkata" });
 cron.schedule('*/5 * * * * *', liveGL);
-
-// () => {
-//   let g = liveGL();
-//   // console.log(g)
-//   setTimeout(()=>g.then(a=>console.log(a)),3000)
-// });
 
 
 app.use(express.static(path.join(__dirname, "/frontend/build")));

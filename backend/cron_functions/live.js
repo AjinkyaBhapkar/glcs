@@ -25,7 +25,7 @@ const liveGL = async () => {
             })
             // return finalData
             setTimeout(()=>{
-                axios.post(`https://traderstoolkit.herokuapp.com/gl/live/update`,{"data":finalData})
+                axios.post(`http://localhost:5000/gl/live/update`,{"data":finalData})
                 .then(()=>console.log('live data updated'))
                 .catch(err=>console.log(err))
             },2000)

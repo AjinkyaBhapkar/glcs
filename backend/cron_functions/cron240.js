@@ -24,7 +24,7 @@ const save2402DB = async () => {
                 final.sort((a, b) => a.change - b.change);
                 // console.log(final.slice(0,5))
                 // console.log(final.slice(-5))
-                axios.post(`https://traderstoolkit.herokuapp.com/gl/add240`,{"gainer":final.slice(-5),"looser":final.slice(0,5)})
+                axios.post(`http://localhost:5000/gl/add240`,{"gainer":final.slice(-5),"looser":final.slice(0,5)})
                 .then(res=>console.log(res))
                 .catch(err=>console.log(err))
             }, 3000)

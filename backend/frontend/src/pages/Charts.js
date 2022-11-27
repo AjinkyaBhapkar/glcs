@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Chart from '../components/Chart'
 import LiveTable from '../components/LiveTable'
+import RvolTable from '../components/RvolTable'
 import './chartPage.css'
 
 const Charts = () => {
@@ -31,6 +32,11 @@ const Charts = () => {
         </div>
         <p className='chartPage-title'>Current 4H candle Gainer and Lossers</p>
         <LiveTable setTicker1={setTicker1} setTicker2={setTicker2} setTicker3={setTicker3} setTicker4={setTicker4} selected={selected} />
+        <RvolTable tf="5"/>
+        <RvolTable tf="15"/>
+        <RvolTable tf="60"/>
+        <RvolTable tf="240"/>
+        <RvolTable tf="d"/>
     </div>
     )
 }

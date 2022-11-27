@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { AdvancedRealTimeChart } from "react-ts-tradingview-widgets";
 import LiveTable from '../components/LiveTable';
+import RvolTable from '../components/RvolTable';
 import './chartpage2.css'
 
 
@@ -83,6 +84,11 @@ const Charts2 = () => {
         </div>
         <h3>Current 4H candle Gainers and Lossers</h3>
         <LiveTable  />
+        <RvolTable tf="5"/>
+        <RvolTable tf="15"/>
+        <RvolTable tf="60"/>
+        <RvolTable tf="240"/>
+        <RvolTable  tf="d"/>
         <h2 style={{'margin':"0"}}>*set browser zoom to 67% or below for better lokking chars</h2>
     </div>
     )
